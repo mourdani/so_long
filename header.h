@@ -1,0 +1,24 @@
+#ifndef SO_LONG_H
+# define SO_LONG_H
+
+typedef struct t_image{
+	void	*id;
+	int	height;
+	int	width;
+} t_image;
+
+typedef struct t_mlx{
+	void	*id;
+	void	*window;
+	t_image	tile;
+} t_mlx;
+
+#define PATH_TILE "assets/tileset.xpm"
+#define PATH_SKULL "assets/skull.xpm"
+#define PATH_SKULL_END "./assets/skull_end.xpm"
+#define PATH_ALCHIMIST "./assets/alchimist.xpm"
+
+#include "mlx/mlx.h"
+#include "mlx/mlx_int.h"
+
+#endif
