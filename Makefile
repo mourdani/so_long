@@ -1,6 +1,8 @@
 NAME = so_long
 FLAGS = -Wall -Werror -Werror
-SRC = main.c
+SRC = main.c\
+      src/gnl/get_next_line.c\
+      src/gnl/get_next_line_utils.c
 INC = header.h
 LIB = -L ./mlx -lmlx -lXext -lX11
 
