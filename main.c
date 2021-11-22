@@ -6,7 +6,7 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 12:39:11 by mourdani          #+#    #+#             */
-/*   Updated: 2021/11/22 04:18:43 by mourdani         ###   ########.fr       */
+/*   Updated: 2021/11/22 05:11:38 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 		++map.height;
 	fd = open(argv[1], O_RDONLY);
 	mlx.id = mlx_init();
-	mlx.window = mlx_new_window(mlx.id, map.width * 32, map.height * 32, "so_long"); 
+	mlx.window = mlx_new_window(mlx.id, map.width * 22, map.height * 22, "so_long"); 
 	mlx.tile.id = mlx_xpm_file_to_image(mlx.id, PATH_TILE, &mlx.tile.width, &mlx.tile.height);
 	mlx.skull.id = mlx_xpm_file_to_image(mlx.id, PATH_SKULL, &mlx.skull.width, &mlx.skull.height);
 	mlx.collectible.id = mlx_xpm_file_to_image(mlx.id, PATH_COLLECTIBLE, &mlx.collectible.width, &mlx.collectible.height);
@@ -52,12 +52,12 @@ int	main(int argc, char **argv)
 				mlx_put_image_to_window(mlx.id, mlx.window, mlx.collectible.id, x, y);
 			if (buff[i] == 'P')
 				mlx_put_image_to_window(mlx.id, mlx.window, mlx.player.id, x, y);
-			x += 32;
+			x += 22;
 			i++;
 		}
 		x = 0;
 		i = 0;
-		y += 32;
+		y += 22;
 	}
 	mlx_loop(mlx.id);
 }
