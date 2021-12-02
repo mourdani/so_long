@@ -4,8 +4,15 @@
 #include "../mlx/mlx.h"
 #include "../mlx/mlx_int.h"
 #include "../src/gnl/get_next_line.h"
+#include <X11/keysymdef.h>
+#include <X11/keysym.h>
+#include <X11/X.h>
+#include <stdio.h>
+
 
 #define WIN_NAME "so_long"
+#define WIN_WIDTH  game->map.width * game->assets.width
+#define WIN_HEIGHT  game->map.height * game->assets.height
 #define PATH_TILE "assets/tile.xpm"
 #define PATH_WALL "assets/wall.xpm"
 #define PATH_COLL "./assets/collectible.xpm"
@@ -28,6 +35,8 @@ typedef struct t_map{
 	int	width;
 	int	height;
 	char	*content;
+	int	position;
+	int	next_pos;
 }t_map;
 
 typedef struct t_mlx{
@@ -35,7 +44,24 @@ typedef struct t_mlx{
 	void	*win;
 }t_mlx;
 
-/*	utiles	*/
+typedef struct t_game{
+	t_mlx	mlx;
+	t_map	map;
+	t_imgs	assets;
+	int	moves;
+	int	coll_left;
+}t_game;
+
+/*	init.c 				*/
+int	map_init(t_map *map, char *argv);
+int	imgs_init(t_mlx mlx, t_imgs *img);
+/*	actions.c			*/
+int	close_win(void *param);
+int	reduce_win(t_game *game);
+int	key_hook(int keycode, t_game *game);
+/*	print_map.c		*/
+int	print_map(t_mlx *mlx, t_map map, t_imgs img);
+/*	utils.c 			*/
 void	*ft_bzero(void *b, unsigned int n);
 void	*ft_memcpy(void *dest, void *src, size_t n);
 size_t	ft_strlcat(char *dst, char *src, size_t dstsize);

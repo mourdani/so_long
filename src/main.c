@@ -6,87 +6,44 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 12:39:11 by mourdani          #+#    #+#             */
-/*   Updated: 2021/11/24 17:41:05 by mourdani         ###   ########.fr       */
+/*   Updated: 2021/12/02 06:12:06 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/header.h"
-#include <stdio.h>
 
-int	map_init(t_map *map, char *argv)
+int	game_init(t_game *game, char *argv)
 {
-	int	fd;
-	char	*ret;
-	int	n;
-
-	fd = open(argv, O_RDONLY);
-	map->width = ft_strlen(get_next_line(fd)) - 1;
-	
-	map->height = 1;
-	while (get_next_line(fd))
-		map->height++;
-
-	fd = open(argv, O_RDONLY);
-	map->content = malloc(sizeof(char) * (map->width * map->height));
-	ret = get_next_line(fd);
-	ft_memcpy(map->content,  ret, sizeof(char) * (map->width * map->height));
-	while ((ret = get_next_line(fd)) > 0)
-		ft_strlcat(map->content,  ret, sizeof(char) * (ft_strlen(map->content) + ft_strlen(ret) + 1));
-}
-
-int	imgs_init(t_mlx mlx, t_imgs *img)
-{
-	img->tile = mlx_xpm_file_to_image(mlx.id, PATH_TILE, &img->width, &img->height);
-	img->wall = mlx_xpm_file_to_image(mlx.id, PATH_WALL, &img->width, &img->height);
-	img->coll = mlx_xpm_file_to_image(mlx.id, PATH_COLL, &img->width, &img->height);
-	img->exit = mlx_xpm_file_to_image(mlx.id, PATH_EXIT, &img->width, &img->height);
-	img->p_right = mlx_xpm_file_to_image(mlx.id, PATH_P_RIGHT, &img->width, &img->height);
-	img->p_left = mlx_xpm_file_to_image(mlx.id, PATH_P_LEFT, &img->width, &img->height);
-}
-
-int	print_map(t_mlx *mlx, t_map map, t_imgs img)
-{
-	int	x;
-	int	y;
 	int	i;
 
-	x = 0;
-	y = 0;
 	i = 0;
-	while (i < ft_strlen(map.content))
+	game->coll_left = 0;
+	game->mlx.id = mlx_init();
+	map_init(&game->map, argv);
+	imgs_init(game->mlx, &game->assets);
+	game->mlx.win = mlx_new_window(game->mlx.id, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
+	game->moves = 1;
+	while (game->map.content[i])
 	{
-		if (map.content[i] == '\n')
-		{
-			x = 0;
-			y += img.height;
-			i++;
-		}
-		if (map.content[i] == '1')
-		    mlx_put_image_to_window(mlx->id, mlx->win, img.wall, x, y);
-		else if (map.content[i] == '0')
-		    mlx_put_image_to_window(mlx->id, mlx->win, img.tile, x, y);
-		else if (map.content[i] == 'C')
-		    mlx_put_image_to_window(mlx->id, mlx->win, img.coll, x, y);
-		else if (map.content[i] == 'P')
-			mlx_put_image_to_window(mlx->id, mlx->win, img.p_right, x, y);
-		else if (map.content[i] == 'E')
-			mlx_put_image_to_window(mlx->id, mlx->win, img.exit, x, y);
-		x += img.width;
+		if (game->map.content[i] == 'C')
+			game->coll_left++;
 		i++;
 	}
+
 }
 
 int	main(int argc, char **argv)
 {
-	t_mlx	mlx;
-	t_map	map;
-	t_imgs	assets;
+	t_game	game;
 
-	mlx.id = mlx_init();
-	map_init(&map, argv[1]);
-	imgs_init(mlx, &assets);
-	mlx.win = mlx_new_window(mlx.id, map.width * assets.width, map.height * assets.height, WIN_NAME);
-	print_map(&mlx, map, assets);
+	game_init(&game, argv[1]);
+	print_map(&game.mlx, game.map, game.assets);
+	printf("map:\n%s\nplayer position in map is :%d\n\n\n", game.map.content, game.map.position);
 
-	mlx_loop(mlx.id);
+	mlx_key_hook(game.mlx.win, &key_hook, &game);
+	mlx_hook(game.mlx.win, DestroyNotify, NoEventMask, close_win, &game);
+	mlx_hook(game.mlx.win, 15, 1L << 16, reduce_win, &game);
+
+	mlx_loop(game.mlx.id);
+	return (0);
 }
