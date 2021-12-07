@@ -50,6 +50,8 @@ int	update_map(t_game *game)
 			close_win(game);
 			exit(0);
 		}
+		else
+			return (0);
 	}
 	ft_swap(&game->map.content[game->map.position], &game->map.content[game->map.next_pos]);
 	game->map.position = game->map.next_pos;
