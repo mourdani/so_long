@@ -33,3 +33,13 @@ size_t	ft_strlcat(char *dst, char *src, size_t dstsize)
 	dst[c] = 0;
 	return (ft_strlen(dst) + ft_strlen(&src[d]));
 }
+
+int	ft_swap(char *a, char *b)
+{
+	char	temp;
+
+	temp =0;
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}

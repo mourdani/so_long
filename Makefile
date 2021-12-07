@@ -3,6 +3,7 @@ FLAGS = -Wall -Werror -Werror
 SRC = src/main.c\
 	src/utils.c\
 	src/init.c\
+	src/moves.c\
 	src/actions.c\
 	src/print_map.c\
 	src/gnl/get_next_line.c\

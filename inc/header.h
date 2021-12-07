@@ -15,10 +15,10 @@
 #define WIN_HEIGHT  game->map.height * game->assets.height
 #define PATH_TILE "assets/tile.xpm"
 #define PATH_WALL "assets/wall.xpm"
-#define PATH_COLL "./assets/collectible.xpm"
-#define PATH_P_RIGHT "./assets/player_right.xpm"
-#define PATH_P_LEFT "./assets/player_left.xpm"
-#define PATH_EXIT "./assets/exit.xpm"
+#define PATH_COLL "assets/collectible.xpm"
+#define PATH_P_RIGHT "assets/player_right.xpm"
+#define PATH_P_LEFT "assets/player_left.xpm"
+#define PATH_EXIT "assets/exit.xpm"
 
 typedef struct t_imgs{
 	void	*tile;
@@ -55,15 +55,22 @@ typedef struct t_game{
 /*	init.c 				*/
 int	map_init(t_map *map, char *argv);
 int	imgs_init(t_mlx mlx, t_imgs *img);
+int	game_init(t_game *game, char *argv);
 /*	actions.c			*/
-int	close_win(void *param);
 int	reduce_win(t_game *game);
-int	key_hook(int keycode, t_game *game);
+int	close_win(t_game *game);
+int	print_moves_number(int keycode, t_game *game);
+/*	moves.c			*/
+int	moves(int keycode, t_game *game);
+int	free_mlx(t_game *game);
+int free_imgs(t_game *game);
+
 /*	print_map.c		*/
 int	print_map(t_mlx *mlx, t_map map, t_imgs img);
+int	update_map(t_game *game);
 /*	utils.c 			*/
-void	*ft_bzero(void *b, unsigned int n);
 void	*ft_memcpy(void *dest, void *src, size_t n);
 size_t	ft_strlcat(char *dst, char *src, size_t dstsize);
+int	ft_swap(char *a, char *b);
 
 #endif

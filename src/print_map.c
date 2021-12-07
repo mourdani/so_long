@@ -31,3 +31,27 @@ int	print_map(t_mlx *mlx, t_map map, t_imgs img)
 		i++;
 	}
 }
+
+
+int	update_map(t_game *game)
+{
+	if (game->map.content[game->map.next_pos] == '1')
+		return (0);
+	if (game->map.content[game->map.next_pos] == 'C')
+	{
+		game->map.content[game->map.next_pos] = '0';
+		game->coll_left -= 1;
+	}
+	if (game->map.content[game->map.next_pos] == 'E')
+	{
+		if (game->coll_left == 0)
+		{
+			printf("\n**** YOU WIN ****\n");
+			close_win(game);
+			exit(0);
+		}
+	}
+	ft_swap(&game->map.content[game->map.position], &game->map.content[game->map.next_pos]);
+	game->map.position = game->map.next_pos;
+	print_map(&game->mlx, game->map, game->assets);
+}
