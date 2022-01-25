@@ -6,7 +6,7 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 03:29:14 by mourdani          #+#    #+#             */
-/*   Updated: 2021/12/07 03:29:15 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/01/25 17:37:56 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,11 @@ int	reduce_win(t_game *game)
 
 int	print_moves_number(int keycode, t_game *game)
 {
-	if (keycode == XK_w || keycode == XK_s || keycode == XK_d || keycode == XK_a )
+	if (keycode == XK_w || keycode == XK_s
+		|| keycode == XK_d || keycode == XK_a)
 	{
 		printf("Number of movements : %d\n", game->moves);
 		game->moves++;
 	}
-  return (0);
+	return (0);
 }

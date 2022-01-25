@@ -20,6 +20,12 @@
 #define PATH_P_LEFT "assets/player_left.xpm"
 #define PATH_EXIT "assets/exit.xpm"
 
+typedef struct coord{
+	int	x;
+	int	y;
+	int	i;
+}t_coord;
+
 typedef struct t_imgs{
 	void	*tile;
 	void	*wall;

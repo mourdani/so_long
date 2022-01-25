@@ -1,37 +1,45 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   print_map.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/01/25 17:38:27 by mourdani          #+#    #+#             */
+/*   Updated: 2022/01/25 21:43:23 by mourdani         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/header.h"
 
 int	print_map(t_mlx *mlx, t_map map, t_imgs img)
 {
-	int	x;
-	int	y;
-	int	i;
+	t_coord	co;
 
-	x = 0;
-	y = 0;
-	i = 0;
-	while (map.content[i])
+	co.x = 0;
+	co.y = 0;
+	co.i = -1;
+	while (map.content[++co.i])
 	{
-		if (map.content[i] == '\n')
+		if (map.content[co.i] == '\n')
 		{
-			x = 0;
-			y += img.height;
-			i++;
+			co.x = 0;
+			co.y += img.height;
+			co.i++;
 		}
-		if (map.content[i] == '1')
-		    mlx_put_image_to_window(mlx->id, mlx->win, img.wall, x, y);
-		else if (map.content[i] == '0')
-		    mlx_put_image_to_window(mlx->id, mlx->win, img.tile, x, y);
-		else if (map.content[i] == 'C')
-		    mlx_put_image_to_window(mlx->id, mlx->win, img.coll, x, y);
-		else if (map.content[i] == 'P')
-			mlx_put_image_to_window(mlx->id, mlx->win, img.p_right, x, y);
-		else if (map.content[i] == 'E')
-			mlx_put_image_to_window(mlx->id, mlx->win, img.exit, x, y);
-		x += img.width;
-		i++;
+		if (map.content[co.i] == '1')
+			mlx_put_image_to_window(mlx->id, mlx->win, img.wall, co.x, co.y);
+		else if (map.content[co.i] == '0')
+			mlx_put_image_to_window(mlx->id, mlx->win, img.tile, co.x, co.y);
+		else if (map.content[co.i] == 'C')
+			mlx_put_image_to_window(mlx->id, mlx->win, img.coll, co.x, co.y);
+		else if (map.content[co.i] == 'P')
+			mlx_put_image_to_window(mlx->id, mlx->win, img.p_right, co.x, co.y);
+		else if (map.content[co.i] == 'E')
+			mlx_put_image_to_window(mlx->id, mlx->win, img.exit, co.x, co.y);
+		co.x += img.width;
 	}
 }
-
 
 int	update_map(t_game *game)
 {
@@ -53,7 +61,8 @@ int	update_map(t_game *game)
 		else
 			return (0);
 	}
-	ft_swap(&game->map.content[game->map.position], &game->map.content[game->map.next_pos]);
+	ft_swap(&game->map.content[game->map.position],
+		&game->map.content[game->map.next_pos]);
 	game->map.position = game->map.next_pos;
 	print_map(&game->mlx, game->map, game->assets);
 }
