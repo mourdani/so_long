@@ -87,7 +87,7 @@ int		update_map(t_game *game);
 void	*ft_memcpy(void *dest, void *src, size_t n);
 size_t	ft_strlcat(char *dst, char *src, size_t dstsize);
 int		ft_swap(char *a, char *b);
-/*	utils.c 			*/
+/*	errors.c 			*/
 int		check_err_foreign_char(t_game game);
 int		check_err_available_char(t_game game);
 int		check_err_map_file(char *argv);

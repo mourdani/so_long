@@ -16,6 +16,11 @@ int	main(int argc, char **argv)
 {
 	t_game	game;
 
+	if (argc != 2)
+	{
+		printf("Error\n");
+		return (0);
+	}
 	game_init(&game, argv[1]);
 	if (check_err(game, argv[1]) == 1)
 	{
