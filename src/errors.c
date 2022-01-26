@@ -78,23 +78,8 @@ int	check_err_map_file(char *argv)
 	return (0);
 }
 
-int	check_err(t_game game, char *argv)
+int	check_err_border(t_game game)
 {
-	int	i;
-	int	j;
-	int	s;
-	int	first_elem;
-	int	last_elem;
-
-	i = 0;
-	j = 0;
-	s = -1;
-	if (check_err_map_file(argv) == 1)
-		return (1);
-	if (check_err_foreign_char(game) == 1)
-		return (1);
-	if (check_err_available_char(game) == 1)
-		return (1);
 	while (i < game.map.width)
 	{
 		if (game.map.content[i++] != '1')
@@ -118,6 +103,28 @@ int	check_err(t_game game, char *argv)
 			return (1);
 	}
 	if (game.map.content[last_elem + j + 1] != '\n')
+		return (1);
+	return (0);
+}
+
+int	check_err(t_game game, char *argv)
+{
+	int	i;
+	int	j;
+	int	s;
+	int	first_elem;
+	int	last_elem;
+
+	i = 0;
+	j = 0;
+	s = -1;
+	if (check_err_map_file(argv) == 1)
+		return (1);
+	if (check_err_foreign_char(game) == 1)
+		return (1);
+	if (check_err_available_char(game) == 1)
+		return (1);
+	if (check_err_border(game) == 1)
 		return (1);
 	return (0);
 }

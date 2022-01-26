@@ -22,7 +22,7 @@ int	game_init(t_game *game, char *argv)
 	map_init(&game->map, argv);
 	imgs_init(game->mlx, &game->assets);
 	game->mlx.win = mlx_new_window
-		(game->mlx.id, WIN_WIDTH, WIN_HEIGHT, WIN_NAME);
+		(game->mlx.id, game->map.width * game->assets.width, game->map.height * game->assets.height, WIN_NAME);
 	game->moves = 1;
 	while (game->map.content[i])
 	{
