@@ -6,7 +6,7 @@
 /*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 21:49:06 by mourdani          #+#    #+#             */
-/*   Updated: 2022/01/25 21:50:34 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/01 01:04:26 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,53 +78,49 @@ int	check_err_map_file(char *argv)
 	return (0);
 }
 
-int	check_err_border(t_game game)
+int	fill_coords(int param, t_coord *co, t_game game)
 {
-	int	i;
-	int	j;
-	int	s;
-	int	first_elem;
-	int	last_elem;
-
-	i = 0;
-	j = 0;
-	s = -1;
-	while (i < game.map.width)
+	if (param == 1)
 	{
-		if (game.map.content[i++] != '1')
-			return (1);
+		co->x = 0;
+		co->y = 0;
+		co->i = -1;
+		while (co->x < game.map.width)
+		{
+			if (game.map.content[co->x++] != '1')
+				return (1);
+		}
 	}
-	i++;
-	first_elem = i;
-	last_elem = i + game.map.width - 1;
-	while (++s < game.map.height - 1)
+	if (param == 2)
 	{
-		if (game.map.content[first_elem + j] != '1'
-			|| game.map.content[last_elem + j] != '1'
-			|| game.map.content[last_elem + j + 1] != '\n' )
-			return (1);
-		j += game.map.width + 1;
+		co->first_elem = ++co->x;
+		co->last_elem = co->x + game.map.width - 1;
 	}
-	j -= game.map.width + 1;
-	while (first_elem + j < last_elem + j)
-	{
-		if (game.map.content[first_elem++ + j] != '1')
-			return (1);
-	}
-	if (game.map.content[last_elem + j + 1] != '\n')
-		return (1);
 	return (0);
 }
 
-int	check_err(t_game game, char *argv)
+int	check_err_border(t_game game)
 {
-	if (check_err_map_file(argv) == 1)
+	t_coord		co;
+
+	if (fill_coords(1, &co, game) == 1)
 		return (1);
-	if (check_err_foreign_char(game) == 1)
-		return (1);
-	if (check_err_available_char(game) == 1)
-		return (1);
-	if (check_err_border(game) == 1)
+	fill_coords(2, &co, game);
+	while (++co.i < game.map.height - 1)
+	{
+		if (game.map.content[co.first_elem + co.y] != '1'
+			|| game.map.content[co.last_elem + co.y] != '1'
+			|| game.map.content[co.last_elem + co.y + 1] != '\n' )
+			return (1);
+		co.y += game.map.width + 1;
+	}
+	co.y -= game.map.width + 1;
+	while (co.first_elem + co.y < co.last_elem + co.y)
+	{
+		if (game.map.content[co.first_elem++ + co.y] != '1')
+			return (1);
+	}
+	if (game.map.content[co.last_elem + co.y + 1] != '\n')
 		return (1);
 	return (0);
 }

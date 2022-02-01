@@ -6,7 +6,7 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 23:20:52 by mourdani          #+#    #+#             */
-/*   Updated: 2022/01/25 23:23:32 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/01 01:03:55 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ typedef struct coord{
 	int		x;
 	int		y;
 	int		i;
+	int		first_elem;
+	int		last_elem;
 }t_coord;
 
 typedef struct t_imgs{
@@ -89,6 +91,8 @@ size_t	ft_strlcat(char *dst, char *src, size_t dstsize);
 int		ft_swap(char *a, char *b);
 /*	errors.c 			*/
 int		check_err_foreign_char(t_game game);
+int		fill_coord(int param, t_coord *co, t_game game);
+int		check_err_border(t_game game);
 int		check_err_available_char(t_game game);
 int		check_err_map_file(char *argv);
 int		check_err(t_game game, char *argv);

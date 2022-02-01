@@ -6,7 +6,7 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 03:29:19 by mourdani          #+#    #+#             */
-/*   Updated: 2022/01/25 21:31:17 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/01 01:21:33 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ int	game_init(t_game *game, char *argv)
 	map_init(&game->map, argv);
 	imgs_init(game->mlx, &game->assets);
 	game->mlx.win = mlx_new_window
-		(game->mlx.id, game->map.width * game->assets.width, game->map.height * game->assets.height, WIN_NAME);
+		(game->mlx.id, game->map.width * game->assets.width,
+			game->map.height * game->assets.height, WIN_NAME);
 	game->moves = 1;
 	while (game->map.content[i])
 	{
@@ -32,10 +33,33 @@ int	game_init(t_game *game, char *argv)
 	}
 }
 
+void	map_content_init(t_map *map, char *argv)
+{
+	int		fd;
+	char	*ret;
+
+	map->content = malloc(sizeof(char) * ((map->width * map->height) + 2));
+	map->content[(map->width * map->height) + 1] = '\0';
+	fd = open(argv, O_RDONLY);
+	ret = get_next_line(fd);
+	ft_memcpy(map->content, ret, sizeof(char) * (map->width + 1));
+	free(ret);
+	ret = get_next_line(fd);
+	while (ret > 0)
+	{
+		ft_strlcat(map->content, ret, sizeof(char)
+			* (ft_strlen(map->content) + ft_strlen(ret) + 1));
+		free(ret);
+		ret = get_next_line(fd);
+	}
+	map->content[ft_strlen(map->content) + 1] = '\0';
+}
+
 int	map_init(t_map *map, char *argv)
 {
 	int		fd;
 	char	*ret;
+	char	*temp;
 	int		n;
 
 	fd = open(argv, O_RDONLY);
@@ -43,24 +67,14 @@ int	map_init(t_map *map, char *argv)
 	map->width = ft_strlen(ret);
 	free(ret);
 	map->height = 1;
-	while (ret = get_next_line(fd))
+	temp = get_next_line(fd);
+	while (temp > 0)
 	{
 		map->height++;
-		free(ret);
+		free (temp);
+		temp = get_next_line(fd);
 	}
-	map->content = malloc(sizeof(char) * ((map->width * map->height) + 2));
-	map->content[(map->width * map->height) + 1] = '\0';
-	fd = open(argv, O_RDONLY);
-	ret = get_next_line(fd);
-	ft_memcpy(map->content, ret, sizeof(char) * (map->width + 1));
-	free(ret);
-	while ((ret = get_next_line(fd)) > 0)
-	{
-		ft_strlcat(map->content, ret, sizeof(char)
-			* (ft_strlen(map->content) + ft_strlen(ret) + 1));
-		free(ret);
-	}
-	map->content[ft_strlen(map->content) + 1] = '\0';
+	map_content_init(map, argv);
 	n = 0;
 	while (map->content[n] != 'P')
 		n++;
