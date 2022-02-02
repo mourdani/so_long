@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajordan- <ajordan-@student.42urduliz.com>  +#+  +:+       +#+        */
+/*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/01 13:24:32 by ajordan-          #+#    #+#             */
-/*   Updated: 2022/01/25 21:15:54 by mourdani         ###   ########.fr       */
+/*   Created: 2022/02/02 02:47:35 by mourdani          #+#    #+#             */
+/*   Updated: 2022/02/02 02:47:38 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "../inc/get_next_line.h"
 
 size_t	ft_strlen(char *s)
 {

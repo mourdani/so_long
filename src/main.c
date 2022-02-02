@@ -6,7 +6,7 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/21 12:39:11 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/01 01:01:48 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/01 07:17:12 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int	main(int argc, char **argv)
 		printf("Error\n");
 		return (0);
 	}
-	game_init(&game, argv[1]);
+	if (game_init(&game, argv[1]) == 1)
+		return (0);
 	if (check_err(game, argv[1]) == 1)
 	{
 		printf("Error\n");

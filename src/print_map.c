@@ -6,13 +6,13 @@
 /*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 17:38:27 by mourdani          #+#    #+#             */
-/*   Updated: 2022/01/25 21:43:23 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/01 06:45:10 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/header.h"
 
-int	print_map(t_mlx *mlx, t_map map, t_imgs img)
+void	print_map(t_mlx *mlx, t_map map, t_imgs img)
 {
 	t_coord	co;
 
@@ -41,10 +41,10 @@ int	print_map(t_mlx *mlx, t_map map, t_imgs img)
 	}
 }
 
-int	update_map(t_game *game)
+void	update_map(t_game *game)
 {
 	if (game->map.content[game->map.next_pos] == '1')
-		return (0);
+		return ;
 	if (game->map.content[game->map.next_pos] == 'C')
 	{
 		game->map.content[game->map.next_pos] = '0';
@@ -59,7 +59,7 @@ int	update_map(t_game *game)
 			exit(0);
 		}
 		else
-			return (0);
+			return ;
 	}
 	ft_swap(&game->map.content[game->map.position],
 		&game->map.content[game->map.next_pos]);

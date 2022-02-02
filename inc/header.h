@@ -6,7 +6,7 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 23:20:52 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/01 01:03:55 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/02 02:56:34 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "../mlx/mlx.h"
 # include "../mlx/mlx_int.h"
-# include "../src/gnl/get_next_line.h"
+# include "../inc/get_next_line.h"
 # include <X11/keysymdef.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
@@ -79,16 +79,16 @@ int		close_win(t_game *game);
 int		print_moves_number(int keycode, t_game *game);
 /*	moves.c			*/
 int		moves(int keycode, t_game *game);
-int		free_mlx(t_game *game);
-int		free_imgs(t_game *game);
+void	free_mlx(t_game *game);
+void	free_imgs(t_game *game);
 
 /*	print_map.c		*/
-int		print_map(t_mlx *mlx, t_map map, t_imgs img);
-int		update_map(t_game *game);
+void	print_map(t_mlx *mlx, t_map map, t_imgs img);
+void	update_map(t_game *game);
 /*	utils.c 			*/
 void	*ft_memcpy(void *dest, void *src, size_t n);
 size_t	ft_strlcat(char *dst, char *src, size_t dstsize);
-int		ft_swap(char *a, char *b);
+void	ft_swap(char *a, char *b);
 /*	errors.c 			*/
 int		check_err_foreign_char(t_game game);
 int		fill_coord(int param, t_coord *co, t_game game);

@@ -6,13 +6,13 @@
 /*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 21:23:04 by mourdani          #+#    #+#             */
-/*   Updated: 2022/01/25 21:31:43 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/01 06:11:55 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/header.h"
 
-int	free_imgs(t_game *game)
+void	free_imgs(t_game *game)
 {
 	mlx_destroy_image(game->mlx.id, game->assets.tile);
 	mlx_destroy_image(game->mlx.id, game->assets.wall);
@@ -22,7 +22,7 @@ int	free_imgs(t_game *game)
 	mlx_destroy_image(game->mlx.id, game->assets.p_left);
 }
 
-int	free_mlx(t_game *game)
+void	free_mlx(t_game *game)
 {
 	mlx_destroy_window(game->mlx.id, game->mlx.win);
 	mlx_destroy_display(game->mlx.id);
@@ -64,7 +64,7 @@ size_t	ft_strlcat(char *dst, char *src, size_t dstsize)
 	return (ft_strlen(dst) + ft_strlen(&src[d]));
 }
 
-int	ft_swap(char *a, char *b)
+void	ft_swap(char *a, char *b)
 {
 	char	temp;
 
