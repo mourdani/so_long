@@ -6,7 +6,7 @@
 /*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 21:49:06 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/01 07:11:09 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/02 05:26:34 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,15 @@ int	check_err_available_char(t_game game)
 int	check_err_map_file(char *argv)
 {
 	int	i;
+	int	fd;
 
 	i = 0;
+	fd = open(argv, O_RDONLY);
+	if (fd == -1)
+	{
+		printf("FILE NOT FOUND\n");
+		return (1);
+	}
 	while (argv[i])
 		i++;
 	if (argv[i - 1] != 'r'
@@ -72,7 +79,7 @@ int	check_err_map_file(char *argv)
 		|| argv[i - 3] != 'b'
 		|| argv[i - 4] != '.')
 	{
-		printf("file format of map: \".ber\"\n");
+		printf("FILE FORMAT SUPPORTED : \".ber\"\n");
 		return (1);
 	}
 	return (0);
@@ -110,7 +117,7 @@ int	check_err_border(t_game game)
 	{
 		if (game.map.content[co.first_elem + co.y] != '1'
 			|| game.map.content[co.last_elem + co.y] != '1'
-			|| game.map.content[co.last_elem + co.y + 1] != '\n' )
+			|| game.map.content[co.last_elem + co.y + 1] != '\n')
 			return (1);
 		co.y += game.map.width + 1;
 	}
