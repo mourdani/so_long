@@ -6,7 +6,7 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 03:29:19 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/02 02:58:26 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/03 03:25:28 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,6 @@ int	game_init(t_game *game, char *argv)
 		return (1);
 	if (map_init(&game->map, argv) == 1)
 		return (1);
-	if (check_err(*game, argv) == 1)
-	{
-		printf("Error\n");
-		return (1);
-	}
 	if (imgs_init(game->mlx, &game->assets) == 1)
 		return (1);
 	game->mlx.win = mlx_new_window
@@ -91,10 +86,7 @@ int	map_init(t_map *map, char *argv)
 
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
-	{
-		printf("File not found\n");
 		return (1);
-	}
 	ret = get_next_line(fd);
 	if (!ret)
 		return (1);

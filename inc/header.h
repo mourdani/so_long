@@ -6,13 +6,12 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 23:20:52 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/02 02:56:34 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/03 03:20:37 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef HEADER_H
-# define HEADER_H
-
+# define HEADER_H 
 # include "../mlx/mlx.h"
 # include "../mlx/mlx_int.h"
 # include "../inc/get_next_line.h"
@@ -90,10 +89,10 @@ void	*ft_memcpy(void *dest, void *src, size_t n);
 size_t	ft_strlcat(char *dst, char *src, size_t dstsize);
 void	ft_swap(char *a, char *b);
 /*	errors.c 			*/
-int		check_err_foreign_char(t_game game);
+int		check_err_foreign_char(char *str);
 int		fill_coord(int param, t_coord *co, t_game game);
-int		check_err_border(t_game game);
-int		check_err_available_char(t_game game);
+int		check_err_border(char *ret);
+int		check_err_available_char(char *str);
 int		check_err_map_file(char *argv);
-int		check_err(t_game game, char *argv);
+int		check_err(char *argv);
 #endif
