@@ -6,7 +6,7 @@
 /*   By: mourdani <mourdani@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 03:29:19 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/03 03:25:28 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/03 04:14:52 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,17 @@ int	map_content_init(t_map *map, char *argv)
 	char	*ret;
 
 	map->content = malloc(sizeof(char) * ((map->width * map->height) + 2));
-	if (!map->content)
-		return (1);
-	map->content[(map->width * map->height) + 1] = '\0';
 	fd = open(argv, O_RDONLY);
-	if (!fd)
+	if (!fd || !map->content)
 		return (1);
 	ret = get_next_line(fd);
 	if (!ret)
-	{
-		printf("Error\n");
 		return (1);
-	}
 	ft_memcpy(map->content, ret, sizeof(char) * (map->width + 1));
 	free(ret);
 	ret = get_next_line(fd);
 	if (!ret)
-	{
-		printf("Error\n");
 		return (1);
-	}
 	while (ret > 0)
 	{
 		ft_strlcat(map->content, ret, sizeof(char)
@@ -77,12 +68,21 @@ int	map_content_init(t_map *map, char *argv)
 	return (0);
 }
 
+int	get_player_position(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i] != 'P')
+		i++;
+	return (i);
+}
+
 int	map_init(t_map *map, char *argv)
 {
 	int		fd;
 	char	*ret;
 	char	*temp;
-	int		n;
 
 	fd = open(argv, O_RDONLY);
 	if (fd == -1)
@@ -102,10 +102,7 @@ int	map_init(t_map *map, char *argv)
 	}
 	if (map_content_init(map, argv) == 1)
 		return (1);
-	n = 0;
-	while (map->content[n] != 'P')
-		n++;
-	map->position = n;
+	map->position = get_player_position(map->content);
 	map->width -= 1;
 	return (0);
 }

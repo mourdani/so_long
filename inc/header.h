@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #ifndef HEADER_H
-# define HEADER_H 
+# define HEADER_H
 # include "../mlx/mlx.h"
 # include "../mlx/mlx_int.h"
 # include "../inc/get_next_line.h"
@@ -76,6 +76,7 @@ int		game_init(t_game *game, char *argv);
 int		reduce_win(t_game *game);
 int		close_win(t_game *game);
 int		print_moves_number(int keycode, t_game *game);
+void	get_w_h(int i, int *w, int *h, char *ret);
 /*	moves.c			*/
 int		moves(int keycode, t_game *game);
 void	free_mlx(t_game *game);

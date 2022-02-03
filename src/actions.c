@@ -37,3 +37,19 @@ int	print_moves_number(int keycode, t_game *game)
 	}
 	return (0);
 }
+
+void	get_w_h(int i, int *w, int *h, char *ret)
+{
+	i = 0;
+	while (ret[i] != '\n')
+		i++;
+	*w = i;
+	*h = 0;
+	i = 0;
+	while (ret[i])
+	{
+		if (ret[i] == '\n')
+			*h = *h + 1;
+		i++;
+	}
+}

@@ -6,7 +6,7 @@
 /*   By: mourdani <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/25 21:49:06 by mourdani          #+#    #+#             */
-/*   Updated: 2022/02/03 03:21:25 by mourdani         ###   ########.fr       */
+/*   Updated: 2022/02/03 03:59:36 by mourdani         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,7 @@ int	check_err_foreign_char(char *str)
 			&& str[i] != 'C'
 			&& str[i] != '\n'
 		)
-		{
-			printf("Error\n");
 			return (1);
-		}
 		i++;
 	}
 	return (0);
@@ -53,10 +50,7 @@ int	check_err_available_char(char *str)
 		i++;
 	}
 	if (p != 1 || e != 1)
-	{
-		printf("Error\n");
 		return (1);
-	}
 	return (0);
 }
 
@@ -67,18 +61,7 @@ int	check_err_border(char *ret)
 	int	h;
 
 	i = 0;
-	while (ret[i] != '\n')
-		i++;
-	w = i;
-	h = 0;
-	i = 0;
-	while (ret[i])
-	{
-		if (ret[i] == '\n')
-			h++;
-		i++;
-	}
-	i = 0;
+	get_w_h(i, &w, &h, ret);
 	while (ret[i])
 	{
 		while (i <= w - 1)
